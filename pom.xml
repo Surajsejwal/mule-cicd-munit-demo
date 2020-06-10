@@ -43,6 +43,7 @@
                     </execution>
                 </executions>
                 <configuration>
+					<runtimeVersion>4.2.2-hf2</runtimeVersion>
                     <coverage>
                         <runCoverage>true</runCoverage>
                         <formats>
