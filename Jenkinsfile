@@ -13,13 +13,5 @@ pipeline {
         bat 'mvn test'
       }
     }
- 	
-    stage('Deploy CloudHub') {
-       steps {
-        echo "Deploying only because of code commit..."
-        echo "deploying to Sandbox environent"
-        bat 'mvn package deploy -DmuleDeploy'
-      }
-    }
   }
 }
