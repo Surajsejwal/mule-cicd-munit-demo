@@ -45,7 +45,12 @@
                 <configuration>
                 	<runtimeVersion>4.2.2</runtimeVersion>
                     <coverage>
+						
                         <runCoverage>true</runCoverage>
+						<failBuild>false</failBuild>
+						<requiredApplicationCoverage>80</requiredApplicationCoverage>
+						<requiredResourceCoverage>80</requiredResourceCoverage>
+						<requiredFlowCoverage>80</requiredFlowCoverage>
                         <formats>
                             <format>html</format>
                         </formats>
