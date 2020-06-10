@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="mule-munit-test-api-test-suite.xml" />
+	<munit:before-test name="mule-munit-test-api-test-suiteBefore_Test" description="Before tests actions" doc:id="3492d91c-49a6-4854-b7e0-3780c8b5205f" >
+		<munit:set-event doc:name="Set Event" doc:id="65a91ac4-2229-4065-90ff-a436e914d0cc">
+				<munit:attributes value="#[{'queryParams':{'key': 'payload_2'}}]" />
+			</munit:set-event>
+	</munit:before-test>
+	<munit:test name="mule-munit-test-api-test-suite-mule-munit-test-apiFlowTest" description="Test" doc:id="eb37e35d-ed28-48a0-9711-631c4ce0b4b1" >
+		<munit:behavior >
+			<munit-tools:spy doc:name="Spy" doc:id="8456b600-594e-4feb-b1ad-4351be975869" processor="mule::http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute attributeName="path" whereValue="/spy" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert-that doc:name="Assert that" doc:id="e63abbab-340e-4280-936a-cd4c8fd58286" expression="#[payload]" is="#[MunitTools::nullValue()]"/>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert-that doc:name="Assert that" doc:id="05138e5d-8ed5-4441-8d7c-79e7d67f5a97" expression="#[payload]" is="#[MunitTools::notnullValue()]"/>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to mule-munit-test-apiFlow" doc:id="61efeed9-08e2-4881-8f02-b89e94660083" name="mule-munit-test-apiFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="81bfd5a7-6437-4781-a7c5-a49a236f3495" expression="#[payload]" is="#[MunitTools::equalTo('response payload 2')]" message="Payload is not as expected"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mule-munit-test-api-test-suite-mule-munit-test-apiFlowTest1" description="Test" doc:id="e2ff7ea9-cafa-4666-ac33-790aa084c109" ignore="true">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to mule-munit-test-apiFlow" doc:id="80c8a5a9-d60f-42c3-9116-6cc18f7e8d36" name="mule-munit-test-apiFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="f892dec5-4691-407f-9a0d-868b495d4a30" processor="mule:flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute attributeName="name" whereValue="mule-munit-test-apiFlow2" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a3f40783-bacf-4e49-906e-53506a00addd" >
+		<http:listener-connection host="0.0.0.0" port="8082" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="0523fcb0-5b89-4c91-85b7-8249abbc9573" >
+		<http:request-connection host="localhost" port="8083" />
+	</http:request-config>
+	<http:listener-config name="HTTP_Listener_config1" doc:name="HTTP Listener config" doc:id="8c8ab76a-0148-4aa6-8a6f-b622166c7ac6" >
+		<http:listener-connection host="localhost" port="8083" />
+	</http:listener-config>
+	<flow name="mule-munit-test-apiFlow" doc:id="f5320a2b-98a6-4224-a93c-bf6c3e8cc4a5" >
+		<http:listener doc:name="Listener" doc:id="ac76cefb-0d85-4a6a-9391-604a5e6fb613" config-ref="HTTP_Listener_config" path="/munit"/>
+		<set-payload value="#[attributes.queryParams.key]" doc:name="Set Payload" doc:id="c46807ea-9a0e-4b21-83e3-22053a275039" />
+		<flow-ref doc:name="Flow Reference" doc:id="50d9e0d0-64a5-43a1-a32c-babad938a306" name="mule-munit-test-apiFlow1"/>
+		<choice doc:name="Choice" doc:id="6a3785b9-f8e5-44bd-b19c-e7eb19027643" >
+			<when expression="#[vars.varVariable == 'variable_1']">
+				<set-payload value="response payload 1" doc:name="Set Payload" doc:id="ae4fc6b5-b9ea-42f3-9a1e-af4c97287154" />
+			</when>
+			<otherwise>
+				<set-payload value="response payload 2" doc:name="Set Payload" doc:id="d98f884a-f07e-445a-8a10-5b5cc9e31dc5" />
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="mule-munit-test-apiFlow1" doc:id="d1475221-b5b8-4a22-b2f8-148846708bc2" >
+		<choice doc:name="Choice" doc:id="cfe50aa5-54c1-4674-9c01-ffa61d6ea305" >
+			<when expression="#[payload == 'payload_1']">
+				<flow-ref doc:name="Flow Reference" doc:id="7f25c40a-99b1-442c-b7cc-613723851f69" name="mule-munit-test-apiFlow2"/>
+			</when>
+			<otherwise >
+				<flow-ref doc:name="Flow Reference" doc:id="3f2d9c8b-c179-41a0-87f1-3dfd9bea8390" name="mule-munit-test-apiFlow3"/>
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="mule-munit-test-apiFlow2" doc:id="7d2205c0-70bb-4cc5-b809-4e02a2c9b795" >
+		<set-variable value="variable_1" doc:name="Set Variable" doc:id="81b619f1-dd8c-4891-8abe-b593863bbedd" variableName="varVariable"/>
+	</flow>
+	<flow name="mule-munit-test-apiFlow3" doc:id="50211137-d8d2-42ff-9023-c9c37024928d" >
+		<set-variable value="variable_2" doc:name="Set Variable" doc:id="e15c9d8e-0551-4cb3-9033-ed5dca0c1925" variableName="varVariable"/>
+	</flow>
+</mule>
