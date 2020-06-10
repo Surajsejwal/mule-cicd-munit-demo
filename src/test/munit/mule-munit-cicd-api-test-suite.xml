@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="mule-munit-cicd-api-test-suite.xml" />
+	<munit:test name="mule-munit-cicd-api-test-suite-mule-munit-cicd-apiFlowTest" description="Test" doc:id="d0bd2703-0f5d-40a9-999a-b7445423c000" >
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to mule-munit-cicd-apiFlow" doc:id="a746b103-2c21-4800-a65c-619d6f333b1c" name="mule-munit-cicd-apiFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="494659c2-783f-4552-a00e-56430fd580d6" expression="#[payload]" is="#[MunitTools::equalTo('cicd demo using jenkins')]" message="payload is not same"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
