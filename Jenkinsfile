@@ -13,5 +13,11 @@ pipeline {
         bat 'mvn test'
       }
     }
+	stage('Deploy CloudHub') { 
+       steps {
+        echo "Deploying only because of code commit..."
+        bat 'mvn package deploy -DmuleDeploy'
+      }
+    }
   }
 }

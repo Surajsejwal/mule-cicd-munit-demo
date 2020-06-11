@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.2.2</app.runtime>
+		<app.runtime>4.2.2-hf2</app.runtime>
 		<mule.maven.plugin.version>3.3.5</mule.maven.plugin.version>
 	<munit.version>2.2.4</munit.version>
     </properties>
@@ -26,6 +26,19 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<cloudHubDeployment>
+				      <uri>https://anypoint.mulesoft.com/</uri>
+				      <muleVersion>4.2.2</muleVersion>
+				      <username>Dec123</username>
+				      <password>Dec@123</password>
+				      <applicationName>mule-munit-cicd-api</applicationName>
+				      <environment>Sandbox</environment>
+				      <workers>1</workers>
+				      <workerType>Micro</workerType>
+				      <properties>
+				        <key>value</key>
+				      </properties>
+  </cloudHubDeployment>
 				</configuration>
 			</plugin>
 		<plugin>
@@ -43,14 +56,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                	<runtimeVersion>4.2.2</runtimeVersion>
                     <coverage>
-						
                         <runCoverage>true</runCoverage>
-						<failBuild>false</failBuild>
-						<requiredApplicationCoverage>80</requiredApplicationCoverage>
-						<requiredResourceCoverage>80</requiredResourceCoverage>
-						<requiredFlowCoverage>80</requiredFlowCoverage>
                         <formats>
                             <format>html</format>
                         </formats>
@@ -88,6 +95,12 @@
             <version>2.2.4</version>
             <classifier>mule-plugin</classifier>
             <scope>test</scope>
+        </dependency>
+    	<dependency>
+            <groupId>com.mulesoft.connectors</groupId>
+            <artifactId>mule-salesforce-connector</artifactId>
+            <version>9.7.10</version>
+            <classifier>mule-plugin</classifier>
         </dependency>
     </dependencies>
 
