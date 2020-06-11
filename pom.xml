@@ -34,6 +34,7 @@
 				      <applicationName>mule-munit-cicd-api</applicationName>
 				      <environment>Sandbox</environment>
 				      <workers>1</workers>
+				      <objectStoreV2>true</objectStoreV2>
 				      <workerType>Micro</workerType>
 				      <properties>
 				        <key>value</key>
@@ -56,6 +57,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                	<runtimeVersion>4.2.2</runtimeVersion>
                     <coverage>
                         <runCoverage>true</runCoverage>
                         <formats>
