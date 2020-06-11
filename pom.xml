@@ -57,7 +57,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                	<runtimeVersion>4.2.2</runtimeVersion>
                     <coverage>
                         <runCoverage>true</runCoverage>
                         <formats>
